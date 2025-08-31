@@ -1,0 +1,32 @@
+name: Run Merge Script
+
+on:
+  push:
+    branches:
+      - '**'  # runs on any branch
+
+jobs:
+  Merging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Execute merge script
+        run: python merge.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add fulldb.json
+          git commit -m "Update NX-Games DB"
+          git push origin HEAD:${GITHUB_REF#refs/heads/}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
