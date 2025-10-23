@@ -1,7 +1,10 @@
 {
     "id": "010002400B770000",
     "name": "Digimon Survive",
-    "releaseDate": 20220729,
-    "version": 1,
-    "description": "<p>Digimon Survive presents a hybrid visual novel and tactical RPG set in a mysterious world filled with dangerous monsters and deadly battles that will test your ability to survive.</p>\n<p>After getting lost on a school trip, Takuma Momozuka finds himself transported to a world inhabited by ferocious foes and new allies. Join Takuma and his friends as they fight their way back home. Craft your story in this thrilling visual novel with turn-based combat.</p>"
+    "publisher": "バンダイナムコエンターテインメント",
+    "releaseDate": 20220728,
+    "version": 0,
+    "region": "JP",
+    "size": 5532286976,
+    "description": "Digimon Survive presents a hybrid visual novel and tactical RPG set in a mysterious world filled with dangerous monsters and deadly battles that will test your ability to survive.\n\nAfter getting lost on a school trip, Takuma Momozuka finds himself transported to a world inhabited by ferocious foes and new allies. Join Takuma and his friends as they fight their way back home. Craft your story in this thrilling visual novel with turn-based combat."
 }
