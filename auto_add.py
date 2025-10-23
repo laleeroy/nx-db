@@ -12,7 +12,6 @@ RAWG_API_KEY = os.getenv("RAWG_API_KEY")
 def get_game_info_from_titles_db(title_id, titles_file="titles.json"):
     if not os.path.exists(titles_file):
         return None
-
     title_id_upper = title_id.upper()
     try:
         with open(titles_file, 'r', encoding='utf-8') as f:
@@ -27,7 +26,8 @@ def get_game_info_from_titles_db(title_id, titles_file="titles.json"):
                             "name": game_data.get("name"),
                             "publisher": game_data.get("publisher"),
                             "releaseDate": game_data.get("releaseDate"),
-                            "version": game_data.get("version", 1),
+                            "version": game_data.get("version", 0),
+                            "region": game_data.get("region", None),  # <- Added region
                             "size": game_data.get("size"),
                             "description": game_data.get("description", "")
                         }
@@ -90,6 +90,7 @@ def fetch_tinfoil_info(title_id):
     size = None
     version = 1
     publisher = None
+    region = None
 
     for li in soup.select("ul.fields li"):
         h4 = li.find("h4")
@@ -109,6 +110,8 @@ def fetch_tinfoil_info(title_id):
                 version = 1
         elif key == "Publisher":
             publisher = val if val and val != "N/A" else None
+        elif key == "Region":
+            region = val if val else None  # <- grab region if exists
 
     return {
         "id": title_id,
@@ -116,6 +119,7 @@ def fetch_tinfoil_info(title_id):
         "publisher": publisher,
         "releaseDate": release_date,
         "version": version,
+        "region": region,  # <- added here
         "size": size,
         "description": description
     }
@@ -169,7 +173,6 @@ def save_game_data(title_id):
 
     print(f"[NOTICE] Found title: {data['name']}")
     choice = input("Do you want to change it? (Y/n): ").strip().lower()
-
     description_changed = False
 
     if choice in ["", "y", "yes"]:
@@ -208,6 +211,7 @@ def save_game_data(title_id):
     print(f"     Name: {data['name']}")
     print(f"     Size: {size_display}")
     print(f"     Publisher: {data.get('publisher')}")
+    print(f"     Region: {data.get('region')}")
     print(f"     Description updated from RAWG: {'Yes' if description_changed else 'No'}")
 
 
